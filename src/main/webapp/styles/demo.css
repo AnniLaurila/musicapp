@@ -1,14 +1,25 @@
-/* this stylesheet is only used for verifying that serving static files works */
 body {
-	max-width: 600px;
-	margin: 0 auto;
-	font-family: sans-serif;
+  background-color: #f2f2f2;
+  font-family: arial, sans-serif;
 }
-.external-css {
-	background-color: #90EE90;
-	padding: 10px;
+
+.center {
+  margin: auto;
+  width: 60%;
+  padding: 10px;
 }
-.time-now {
-	text-align: center;
-	font-size: 2em;
+
+table {
+  border-collapse: collapse;
+  width: 80%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
 }

@@ -97,10 +97,29 @@ public class JDBCArtistDao implements ArtistDao {
         			
 	}
 
-	
+	// tätä ei varsinaisesti tarvita, voi poistaa ennen tehtävän palautusta
 	@Override
 	public boolean removeArtist(Artist artist) {
-		return false;
+		
+		Connection connection = null;
+        PreparedStatement statement = null;
+        boolean success = false;
+
+        try {
+            connection = connect();
+            statement = connection.prepareStatement("delete from artist where artistid = ?");
+            statement.setLong(1, artist.getArtistId());
+
+            if (statement.executeUpdate() == 1) {
+                success = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeResources(statement, connection);
+        }
+        
+        return success;
 	}
 	
     protected Connection connect() throws SQLException {

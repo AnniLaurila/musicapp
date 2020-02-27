@@ -12,5 +12,6 @@ public interface ArtistDao {
 	
 	public boolean addArtist(Artist newArtist);
 	
+	// tätä ei varsinaisesti tarvita, voi poistaa ennen tehtävän palautusta
 	public boolean removeArtist(Artist artist);
 }

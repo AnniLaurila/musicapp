@@ -9,19 +9,39 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import database.JDBCArtistDao;
+import model.Artist;
+
 @WebServlet("")
 public class MusicAppServlet extends HttpServlet {
+	
+	private final JDBCArtistDao artistDao = new JDBCArtistDao();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String timeString = LocalTime.now().toString();
+        
+        req.setAttribute("artists", artistDao.getAllArtists());
 
-        // pass the time string to the JSP page as an attribute
-        req.setAttribute("timeNow", timeString);
-
-        // forward the request to the index.jsp page
         req.getRequestDispatcher("/WEB-INF/index.jsp").forward(req, resp);
     }
+    
+    @Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+		
+    	String name = req.getParameter("name");
+    	
+        if (name == null || name.isEmpty()) {
+            throw new IllegalArgumentException("Check name-parameter");
+        }
+        
+        if(artistDao.addArtist(new Artist(name))) {
+        	resp.sendRedirect("/");
+        } else {
+        	req.setAttribute("error", "Artistin lis‰‰minen ei onnistunut");
+        	req.getRequestDispatcher("/WEB-INF/error.jsp").forward(req, resp);
+        }
+    	
+	}
 }
 
 
