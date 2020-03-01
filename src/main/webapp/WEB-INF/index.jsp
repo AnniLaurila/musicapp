@@ -16,22 +16,19 @@
 <body>
 	<div class=center>
 	<h1>MusicApp!</h1>
-	<p>All ${fn:length(artists)} artists</p>
+	<p>All <c:out value="${fn:length(artists)}"></c:out> artists</p>
 	</div>
 	<table class=center>
 		<tr>
     		<th>#</th>
     		<th>Artist</th>
-    		<th>Albums</th>
   		</tr>
 	
     	<c:forEach items="${artists}" var="artist">
         	<tr id="artist-${ artist.getArtistId() }">
         	<td><c:out value="${artist.artistId}"></c:out></td>
-        	<td><c:out value="${artist.name}"></c:out></td>
-        	<td><!-- uses the id of the current product as the id parameter -->
-			<button onclick="showAlbums(${ artist.getArtistId() })">Albums</button>
-			</td>
+        	<td><a href="/albums" onclick="showAlbums(${ artist.getArtistId() })">
+        	<c:out value="${artist.name}"></c:out></a></td> 
         	</tr>
 
         	

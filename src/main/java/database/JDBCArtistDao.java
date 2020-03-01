@@ -26,7 +26,7 @@ public class JDBCArtistDao implements ArtistDao {
 
         try {
             connection = connect();
-            statement = connection.prepareStatement("select * from artist order by artistid asc");
+            statement = connection.prepareStatement("select artistid, name from artist order by artistid asc");
             result = statement.executeQuery();
 
             while (result.next()) {
@@ -52,7 +52,7 @@ public class JDBCArtistDao implements ArtistDao {
         
         try {
             connection = connect();
-            statement = connection.prepareStatement("select * from artist where artistid = ?");
+            statement = connection.prepareStatement("select artistid, name from artist where artistid = ?");
             statement.setLong(1, artistId);
             result = statement.executeQuery();
             
