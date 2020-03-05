@@ -34,7 +34,7 @@
 	</table>
 
 	<br>
-	<p class=center>Takaisin <a href="/">artistilistaukseen</a></p>
+	<p class=center>Takaisin <a href="/">etusivulle</a></p>
 
 </body>
 

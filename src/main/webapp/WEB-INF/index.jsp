@@ -11,6 +11,7 @@
 	<meta charset="utf-8">
 	<title>MusicApp</title>
 	<link rel="stylesheet" href="/styles/demo.css">
+	<script type="text/javascript" src="/scripts/app.js"></script>
 </head>
 
 <body>
@@ -27,10 +28,9 @@
     	<c:forEach items="${artists}" var="artist">
         	<tr id="artist-${ artist.getArtistId() }">
         	<td><c:out value="${artist.artistId}"></c:out></td>
-        	<td><a href="/albums?artistId=${artist.artistId}" onclick="showAlbums(${ artist.getArtistId() })">
+        	<td><a href="/albums?artistId=${artist.artistId}">
         	<c:out value="${artist.name}"></c:out></a></td> 
         	</tr>
-
         	
 		</c:forEach>
 	</table>
