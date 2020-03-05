@@ -14,34 +14,34 @@ import model.Artist;
 
 @WebServlet("")
 public class MusicAppServlet extends HttpServlet {
-	
+
 	private final JDBCArtistDao artistDao = new JDBCArtistDao();
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        
-        req.setAttribute("artists", artistDao.getAllArtists());
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        req.getRequestDispatcher("/WEB-INF/index.jsp").forward(req, resp);
-    }
-    
-    @Override
+		try {
+			req.setAttribute("artists", artistDao.getAllArtists());
+			req.getRequestDispatcher("/WEB-INF/index.jsp").forward(req, resp);
+		} catch (Exception e) {
+			e.printStackTrace();
+			req.setAttribute("error", "Artistien haku ei onnistunut");
+			req.getRequestDispatcher("/WEB-INF/error.jsp").forward(req, resp);
+		}
+	}
+
+	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-		
-    	String name = req.getParameter("name");
-    	
-        if (name == null || name.isEmpty()) {
-            throw new IllegalArgumentException("Check name-parameter");
-        }
-        
-        if(artistDao.addArtist(new Artist(name))) {
-        	resp.sendRedirect("/");
-        } else {
-        	req.setAttribute("error", "Artistin lis‰‰minen ei onnistunut");
-        	req.getRequestDispatcher("/WEB-INF/error.jsp").forward(req, resp);
-        }
-    	
+
+		try {
+			String name = req.getParameter("name");
+			artistDao.addArtist(new Artist(name));
+			resp.sendRedirect("/");
+		} catch (Exception e) {
+			e.printStackTrace();
+			req.setAttribute("error", "Artistin lis‰‰minen ei onnistunut");
+			req.getRequestDispatcher("/WEB-INF/error.jsp").forward(req, resp);
+		}
+
 	}
 }
-
-

@@ -29,8 +29,9 @@ public class AlbumServlet extends HttpServlet {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+        	req.setAttribute("error", "Albumien haku ei onnistunut");
+        	req.getRequestDispatcher("/WEB-INF/error.jsp").forward(req, resp);
 		}
-
 
 
 	}

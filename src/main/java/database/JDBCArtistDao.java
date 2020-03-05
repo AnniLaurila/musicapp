@@ -12,8 +12,6 @@ import java.util.List;
 import model.Artist;
 
 public class JDBCArtistDao implements ArtistDao {
-
-	private static final String JDBC_URL = System.getenv("JDBC_DATABASE_URL");
 	
 	@Override
     public List<Artist> getAllArtists() {
@@ -25,7 +23,7 @@ public class JDBCArtistDao implements ArtistDao {
         List<Artist> allArtists = new ArrayList<>();
 
         try {
-            connection = connect();
+            connection = Database.connect();
             statement = connection.prepareStatement("select artistid, name from artist order by artistid asc");
             result = statement.executeQuery();
 
@@ -36,7 +34,7 @@ public class JDBCArtistDao implements ArtistDao {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            closeResources(result, statement, connection);
+        	Database.closeResources(result, statement, connection);
         }
         return allArtists;
     }
@@ -51,7 +49,7 @@ public class JDBCArtistDao implements ArtistDao {
         Artist artist = null;
         
         try {
-            connection = connect();
+            connection = Database.connect();
             statement = connection.prepareStatement("select artistid, name from artist where artistid = ?");
             statement.setLong(1, artistId);
             result = statement.executeQuery();
@@ -62,7 +60,7 @@ public class JDBCArtistDao implements ArtistDao {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            closeResources(result, statement, connection);
+        	Database.closeResources(result, statement, connection);
         }
         return artist;
 	}
@@ -75,7 +73,7 @@ public class JDBCArtistDao implements ArtistDao {
         boolean success = false;
         
         try {
-        	connection = connect();
+        	connection = Database.connect();
         	statement = connection.prepareStatement("insert into artist (name) values (?)",
         			Statement.RETURN_GENERATED_KEYS);
         	statement.setString(1, newArtist.getName());
@@ -90,7 +88,7 @@ public class JDBCArtistDao implements ArtistDao {
          } catch (SQLException e) {
              e.printStackTrace();
          } finally {
-             closeResources(statement, connection);
+        	 Database.closeResources(statement, connection);
          }
         
          return success;
@@ -106,7 +104,7 @@ public class JDBCArtistDao implements ArtistDao {
         boolean success = false;
 
         try {
-            connection = connect();
+            connection = Database.connect();
             statement = connection.prepareStatement("delete from artist where artistid = ?");
             statement.setLong(1, artist.getArtistId());
 
@@ -116,31 +114,12 @@ public class JDBCArtistDao implements ArtistDao {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            closeResources(statement, connection);
+        	Database.closeResources(statement, connection);
         }
         
         return success;
 	}
 	
-    protected Connection connect() throws SQLException {
-        if (JDBC_URL == null) {
-            throw new RuntimeException("JDBC_DATABASE_URL environment variable not found");
-        } else {
-            return DriverManager.getConnection(JDBC_URL);
-        }
-    }
-    
-    private static void closeResources(AutoCloseable... sqlResources) {
-        for (AutoCloseable a : sqlResources) {
-            if (a != null) {
-                try {
-                    a.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
 	
 }
 

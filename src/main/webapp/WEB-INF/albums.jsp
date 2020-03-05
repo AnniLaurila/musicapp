@@ -33,6 +33,8 @@
 		</c:forEach>
 	</table>
 
+	<br>
+	<p class=center>Takaisin <a href="/">artistilistaukseen</a></p>
 
 </body>
 
