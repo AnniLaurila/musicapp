@@ -1,0 +1,25 @@
+7614cd3 (HEAD -> master, origin/master, origin/HEAD) ArtistDaon testit
+680958f viimeisiä hiomisia
+9cd6727 Merge branch 'master' of https://github.com/AnniLaurila/musicapp muokattu githubissa readme:ta
+8515b3f muokattu virhekäsittelyä ja siirretty tietokantayhteyteen liittyvät toiminnot database-luokkaan
+b99b0d0 Update README.md
+bc57ae1 Lisätty artistin albumien haku
+a54a93b Lisätty AlbumDao ja Servlet
+9c44b50 lisätty ja form artistin lisäämiseksi ja paria riviä css:ään
+92e7909 lisätty dao-rajapinnan toteutus (pl. removeArtist) ja servlet-pohja
+94e8b0c lisätty model-luokat ja dao-rajapinnat
+435a951 git init
+b5a88bd Koodiesimerkki Tomcatin käynnistyksestä
+c03b7cb Koodiesimerkki Tomcatin käynnistyksestä
+0f09cd2 Korjattu typo
+8d81307 Muutettu alaviittauksen tyyli
+3b99325 UTF-8 käyttöön pyynnöissä ja vastauksissa
+5bbc5b0 Taustamateriaalin lisäys
+9e14ee5 Tabi välilyönneiksi
+c363154 Poistettu target-hakemistot classpathista
+e631838 Korjattu zip-paketin latauslinkki
+9a47a9e Terminate-ominaisuuden linkki
+2351876 Dokumentaation päivitys
+e158992 Tilapäishakemistot .gitignore-tiedostoon
+4a247f5 Lisätty .gitignore-tiedostot tyhjiin hakemistoihin
+b948225 Ensimmäinen versio esimerkkiprojektista
