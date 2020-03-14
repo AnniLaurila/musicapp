@@ -5,10 +5,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Database {
-
-	private static final String JDBC_URL = System.getenv("JDBC_DATABASE_URL");
 	
-    public static Connection connect() throws SQLException {
+    public static Connection connect(String JDBC_URL) throws SQLException {
         if (JDBC_URL == null) {
             throw new RuntimeException("JDBC_DATABASE_URL environment variable not found");
         } else {

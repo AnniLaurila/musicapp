@@ -12,6 +12,7 @@ import model.Artist;
 
 public class JDBCAlbumDao implements AlbumDao {
 	
+	private static final String JDBC_URL = System.getenv("JDBC_DATABASE_URL");
 	private final JDBCArtistDao artistDao = new JDBCArtistDao();
 	
 	public List<Album> getAlbumsByArtist(long artistId) {
@@ -23,7 +24,7 @@ public class JDBCAlbumDao implements AlbumDao {
         List<Album> allAlbums = new ArrayList<Album>();
         
         try {
-            connection = Database.connect();
+            connection = Database.connect(JDBC_URL);
             statement = connection.prepareStatement("select albumid, title, artistid from album where artistid = ?");
             statement.setLong(1, artistId);
             result = statement.executeQuery();

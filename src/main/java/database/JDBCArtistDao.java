@@ -13,6 +13,9 @@ import model.Artist;
 
 public class JDBCArtistDao implements ArtistDao {
 	
+
+	private static final String JDBC_URL = System.getProperty("JDBC_DATABASE_URL");
+	
 	@Override
     public List<Artist> getAllArtists() {
 		
@@ -23,7 +26,7 @@ public class JDBCArtistDao implements ArtistDao {
         List<Artist> allArtists = new ArrayList<>();
 
         try {
-            connection = Database.connect();
+            connection = Database.connect(JDBC_URL);
             statement = connection.prepareStatement("select artistid, name from artist order by artistid asc");
             result = statement.executeQuery();
 
@@ -49,7 +52,7 @@ public class JDBCArtistDao implements ArtistDao {
         Artist artist = null;
         
         try {
-            connection = Database.connect();
+            connection = Database.connect(JDBC_URL);
             statement = connection.prepareStatement("select artistid, name from artist where artistid = ?");
             statement.setLong(1, artistId);
             result = statement.executeQuery();
@@ -73,7 +76,7 @@ public class JDBCArtistDao implements ArtistDao {
         boolean success = false;
         
         try {
-        	connection = Database.connect();
+        	connection = Database.connect(JDBC_URL);
         	statement = connection.prepareStatement("insert into artist (name) values (?)",
         			Statement.RETURN_GENERATED_KEYS);
         	statement.setString(1, newArtist.getName());
@@ -95,31 +98,6 @@ public class JDBCArtistDao implements ArtistDao {
         			
 	}
 
-	// tätä ei varsinaisesti tarvita, voi poistaa ennen tehtävän palautusta
-	@Override
-	public boolean removeArtist(Artist artist) {
-		
-		Connection connection = null;
-        PreparedStatement statement = null;
-        boolean success = false;
-
-        try {
-            connection = Database.connect();
-            statement = connection.prepareStatement("delete from artist where artistid = ?");
-            statement.setLong(1, artist.getArtistId());
-
-            if (statement.executeUpdate() == 1) {
-                success = true;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-        	Database.closeResources(statement, connection);
-        }
-        
-        return success;
-	}
-	
 	
 }
 
