@@ -15,7 +15,7 @@
 		<sqlite.driver.version>3.30.1</sqlite.driver.version>
 		<junit.jupiter.version>5.6.0</junit.jupiter.version>
 		<jstl.api.version>1.2</jstl.api.version>
-		<gson.version>2.8.6</gson.version>
+		<gson.version>2.8.9</gson.version>
 	</properties>
 
 	<dependencies>
